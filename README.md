@@ -1,7 +1,8 @@
-
 ## How can I edit this code?
 
 There are several ways of editing your application.
+
+Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
@@ -51,7 +52,7 @@ This project is built with:
 
 ## How can I deploy this project?
 
-use vercel for disployment or any other platform
+Use Vercel for deployment or any other platform.
 
 ## Can I connect a custom domain to my Lovable project?
 
