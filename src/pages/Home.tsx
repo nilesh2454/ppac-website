@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,18 +35,16 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center hero-pattern px-4">
+      <section className="relative min-h-screen flex items-center justify-center hero-pattern px-4 pt-8 sm:pt-12 pb-8 sm:pb-0">
         <div className="absolute inset-0 gradient-bg opacity-90"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">
+            <p className="text-lg sm:text-xl md:text-2xl text-white font-semibold mb-2">Welcome To</p>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               Pre-Placement Activity Club
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-2 sm:mb-4">
-              School of Computer Sciences
-            </p>
             <p className="text-base sm:text-lg md:text-xl text-blue-200 mb-6 sm:mb-8">
-              KBCNMU Jalgaon
+              School of Computer Sciences
             </p>
             <p className="text-sm sm:text-base md:text-lg text-blue-100 mb-8 sm:mb-12 max-w-3xl mx-auto px-4">
               Empowering students with comprehensive placement preparation, 

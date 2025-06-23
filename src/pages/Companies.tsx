@@ -137,23 +137,23 @@ const Companies = () => {
           {companies.map((company, index) => (
             <Card key={index} className="card-hover">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-24 h-24 rounded-lg overflow-hidden flex items-center justify-center bg-white">
-                      <img 
-                        src={company.logo} 
-                        alt={`${company.name} logo`}
-                        className="max-w-[85%] max-h-[85%] object-contain"
-                      />
-                    </div>
-                    <div>
-                      <CardTitle className="text-xl">{company.name}</CardTitle>
-                      <p className="text-gray-600">{company.category}</p>
-                    </div>
+                <div className="flex flex-col items-center gap-4 w-full">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex items-center justify-center bg-white">
+                    <img 
+                      src={company.logo} 
+                      alt={`${company.name} logo`}
+                      className="max-w-full max-h-full object-contain"
+                    />
                   </div>
-                  <Badge className={getStatusColor(company.status)}>
-                    {company.status}
-                  </Badge>
+                  <div className="text-center w-full">
+                    <CardTitle className="text-lg sm:text-xl break-words">{company.name}</CardTitle>
+                    <p className="text-gray-600 text-sm sm:text-base">{company.category}</p>
+                  </div>
+                  <div className="flex justify-center w-full">
+                    <Badge className={getStatusColor(company.status)}>
+                      {company.status}
+                    </Badge>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent>
@@ -161,13 +161,13 @@ const Companies = () => {
                   {/* Eligibility */}
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Eligibility Criteria</h4>
-                    <p className="text-gray-700 text-sm">{company.eligibility}</p>
+                    <p className="text-gray-700 text-sm break-words">{company.eligibility}</p>
                   </div>
 
                   {/* Package */}
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Package Range</h4>
-                    <p className="text-green-600 font-bold">{company.packages}</p>
+                    <p className="text-green-600 font-bold break-words">{company.packages}</p>
                   </div>
 
                   {/* Roles */}
@@ -195,22 +195,22 @@ const Companies = () => {
 
                   {/* Visit Date */}
                   <div className="bg-blue-50 p-3 rounded-lg">
-                    <p className="text-sm text-blue-700">
+                    <p className="text-sm text-blue-700 break-words">
                       <strong>Campus Visit:</strong> {company.visitDate}
                     </p>
                   </div>
 
                   {/* Actions */}
-                  <div className="flex gap-3 pt-4">
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4">
                     <Button 
                       size="sm" 
-                      className="flex-1"
+                      className="w-full sm:flex-1"
                       onClick={() => window.open(company.website, '_blank')}
                     >
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Visit Website
                     </Button>
-                    <Button size="sm" variant="outline">
+                    <Button size="sm" variant="outline" className="w-full sm:flex-1">
                       <Download className="h-4 w-4 mr-2" />
                       Test Syllabus
                     </Button>

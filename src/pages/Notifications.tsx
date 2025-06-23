@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -143,52 +142,32 @@ const Notifications = () => {
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">
-                {notifications.filter(n => n.type === 'urgent').length}
-              </div>
-              <div className="text-gray-600">Urgent</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">
-                {notifications.filter(n => n.type === 'important').length}
-              </div>
-              <div className="text-gray-600">Important</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">
-                {notifications.filter(n => n.isPinned).length}
-              </div>
-              <div className="text-gray-600">Pinned</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-6 text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">
-                {notifications.filter(n => n.hasAttachment).length}
-              </div>
-              <div className="text-gray-600">With Files</div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Removed the four quick stats cards (Urgent, Important, Pinned, With Files) */}
 
-        {/* Category Tabs */}
+        {/* Category Dropdown for Mobile */}
+        <div className="block sm:hidden mb-4">
+          <select
+            value={activeTab}
+            onChange={e => setActiveTab(e.target.value)}
+            className="w-full p-2 border rounded-md text-base"
+          >
+            {categories.map(category => (
+              <option key={category.id} value={category.id}>
+                {category.label} ({category.count})
+              </option>
+            ))}
+          </select>
+        </div>
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-8">
+          {/* Category Tabs for Desktop */}
+          <TabsList className="hidden sm:grid w-full grid-cols-5 mb-8 overflow-x-auto whitespace-nowrap gap-2">
             {categories.map((category) => (
-              <TabsTrigger key={category.id} value={category.id} className="flex items-center space-x-2">
+              <TabsTrigger key={category.id} value={category.id} className="flex items-center space-x-2 min-w-[140px] justify-center">
                 <span>{category.label}</span>
                 <Badge variant="secondary" className="ml-2">{category.count}</Badge>
               </TabsTrigger>
             ))}
           </TabsList>
-
           <TabsContent value={activeTab}>
             <div className="space-y-6">
               {/* Pinned Notifications */}
@@ -202,42 +181,38 @@ const Notifications = () => {
                     {filteredNotifications.filter(n => n.isPinned).map((notification) => (
                       <Card key={`pinned-${notification.id}`} className="border-2 border-blue-200 bg-blue-50/50">
                         <CardContent className="p-6">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <div className="flex items-center space-x-3 mb-3">
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex flex-wrap items-center gap-2 mb-3">
                                 <span className="text-2xl">{getTypeIcon(notification.type)}</span>
                                 <Badge className={getTypeColor(notification.type)}>
                                   {notification.type.toUpperCase()}
                                 </Badge>
                                 <Badge variant="outline">{notification.category}</Badge>
-                                <Pin className="h-4 w-4 text-blue-600" />
+                                {notification.isPinned && <Pin className="h-4 w-4 text-blue-600" />}
                               </div>
-                              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                {notification.title}
-                              </h3>
-                              <p className="text-gray-700 mb-4">
-                                {notification.description}
-                              </p>
-                              <div className="flex items-center space-x-4 text-sm text-gray-600">
-                                <div className="flex items-center space-x-1">
+                              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 break-words">{notification.title}</h3>
+                              <p className="text-gray-700 mb-4 break-words">{notification.description}</p>
+                              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+                                <div className="flex items-center gap-1">
                                   <Calendar className="h-4 w-4" />
                                   <span>{new Date(notification.date).toLocaleDateString()}</span>
                                 </div>
                                 {notification.deadline && (
-                                  <div className="flex items-center space-x-1 text-red-600">
+                                  <div className="flex items-center gap-1 text-red-600">
                                     <Clock className="h-4 w-4" />
                                     <span>Deadline: {notification.deadline}</span>
                                   </div>
                                 )}
                                 {notification.venue && (
-                                  <div className="flex items-center space-x-1">
+                                  <div className="flex items-center gap-1">
                                     <span>📍 {notification.venue}</span>
                                   </div>
                                 )}
                               </div>
                             </div>
                             {notification.hasAttachment && (
-                              <Button size="sm" variant="outline">
+                              <Button size="sm" variant="outline" className="mt-4 sm:mt-0 w-full sm:w-auto">
                                 <Download className="h-4 w-4 mr-2" />
                                 Download
                               </Button>
@@ -262,41 +237,37 @@ const Notifications = () => {
                   {filteredNotifications.filter(n => !n.isPinned).map((notification) => (
                     <Card key={notification.id} className="card-hover">
                       <CardContent className="p-6">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-3 mb-3">
+                        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
                               <span className="text-2xl">{getTypeIcon(notification.type)}</span>
                               <Badge className={getTypeColor(notification.type)}>
                                 {notification.type.toUpperCase()}
                               </Badge>
                               <Badge variant="outline">{notification.category}</Badge>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                              {notification.title}
-                            </h3>
-                            <p className="text-gray-700 mb-4">
-                              {notification.description}
-                            </p>
-                            <div className="flex items-center space-x-4 text-sm text-gray-600">
-                              <div className="flex items-center space-x-1">
+                            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 break-words">{notification.title}</h3>
+                            <p className="text-gray-700 mb-4 break-words">{notification.description}</p>
+                            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+                              <div className="flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
                                 <span>{new Date(notification.date).toLocaleDateString()}</span>
                               </div>
                               {notification.deadline && (
-                                <div className="flex items-center space-x-1 text-red-600">
+                                <div className="flex items-center gap-1 text-red-600">
                                   <Clock className="h-4 w-4" />
                                   <span>Deadline: {notification.deadline}</span>
                                 </div>
                               )}
                               {notification.venue && (
-                                <div className="flex items-center space-x-1">
+                                <div className="flex items-center gap-1">
                                   <span>📍 {notification.venue}</span>
                                 </div>
                               )}
                             </div>
                           </div>
                           {notification.hasAttachment && (
-                            <Button size="sm" variant="outline">
+                            <Button size="sm" variant="outline" className="mt-4 sm:mt-0 w-full sm:w-auto">
                               <Download className="h-4 w-4 mr-2" />
                               Download
                             </Button>

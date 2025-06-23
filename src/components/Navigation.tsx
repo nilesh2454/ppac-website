@@ -26,9 +26,8 @@ const Navigation = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2 sm:space-x-3">
               <img src={mainlogo} alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg" />
-              <div className="hidden sm:block">
-                <h1 className="text-lg sm:text-xl font-bold gradient-text">PPAC</h1>
-                <p className="text-xs text-gray-600">KBCNMU Jalgaon</p>
+              <div>
+                <h1 className="text-2xl sm:text-3xl font-bold gradient-text">PPAC</h1>
               </div>
             </Link>
           </div>
