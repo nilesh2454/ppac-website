@@ -14,8 +14,8 @@ const Footer = () => {
                 <div>
                   <p className="text-gray-300 text-sm sm:text-base">
                     School of Computer Sciences<br />
-                    North Maharashtra University<br />
-                    Jalgaon, Maharashtra, India
+                    KBCNMU Jalgaon<br />
+                    Maharashtra, India
                   </p>
                 </div>
               </div>
@@ -52,7 +52,7 @@ const Footer = () => {
               </a>
               <div className="mt-6">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.4!2d75.5626!3d21.0077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd9c3a6d6a1ef45%3A0x102a1096b2d43b99!2sNorth%20Maharashtra%20University!5e0!3m2!1sen!2sin!4v1710864000000!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.4000000000005!2d75.494266!3d21.0049165!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd90fc400000001%3A0xab13aa1ab942ca36!2sSchool%20of%20Computer%20Science%2C%20Kavayitri%20Bahinabai%20Chaudhari%20North%20Maharashtra%20University%2C%20Jalgaon!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                   width="100%"
                   height="120"
                   style={{ border: 0 }}
