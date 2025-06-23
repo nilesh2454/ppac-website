@@ -35,7 +35,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center hero-pattern px-4 pt-8 sm:pt-12 pb-8 sm:pb-0">
+      <section className="relative min-h-screen flex items-center justify-center hero-pattern px-4 pt-8 sm:pt-12 pb-16 sm:pb-0">
         <div className="absolute inset-0 gradient-bg opacity-90"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fade-in">

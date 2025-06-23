@@ -9,7 +9,7 @@ const Alumni = () => {
     {
       id: 1,
       name: "Priya Sharma",
-      photo: "https://images.unsplash.com/photo-1494790108755-2616b612b647?w=150&h=150&fit=crop&crop=face",
+      photo: "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150&h=150&fit=crop&crop=face",
       batch: "2023",
       currentRole: "Software Engineer",
       company: "Google",
@@ -150,16 +150,16 @@ const Alumni = () => {
           {alumni.map((person) => (
             <Card key={person.id} className="card-hover">
               <CardHeader>
-                <div className="flex items-center space-x-4">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full">
                   <img 
                     src={person.photo} 
                     alt={person.name}
-                    className="w-16 h-16 rounded-full object-cover"
+                    className="w-20 h-20 sm:w-16 sm:h-16 rounded-full object-cover mx-auto sm:mx-0"
                   />
-                  <div>
-                    <CardTitle className="text-xl">{person.name}</CardTitle>
+                  <div className="text-center sm:text-left w-full">
+                    <CardTitle className="text-lg sm:text-xl break-words">{person.name}</CardTitle>
                     <p className="text-gray-600">{person.currentRole}</p>
-                    <div className="flex items-center space-x-2 mt-1">
+                    <div className="flex flex-wrap justify-center sm:justify-start items-center gap-2 mt-1">
                       <Badge variant="outline">{person.batch}</Badge>
                       <Badge className="bg-green-100 text-green-700">{person.package}</Badge>
                     </div>
@@ -169,20 +169,19 @@ const Alumni = () => {
               <CardContent>
                 <div className="space-y-4">
                   {/* Company & Location */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex items-center space-x-2 justify-center sm:justify-start">
                       <span className="font-semibold text-blue-600">{person.company}</span>
                     </div>
-                    <div className="flex items-center space-x-1 text-gray-600">
+                    <div className="flex items-center space-x-1 text-gray-600 justify-center sm:justify-end">
                       <MapPin className="h-4 w-4" />
                       <span className="text-sm">{person.location}</span>
                     </div>
                   </div>
-
                   {/* Achievements */}
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Achievements</h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                       {person.achievements.map((achievement, index) => (
                         <Badge key={index} variant="secondary" className="text-xs">
                           {achievement}
@@ -190,19 +189,17 @@ const Alumni = () => {
                       ))}
                     </div>
                   </div>
-
                   {/* Advice */}
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-2">Advice for Juniors</h4>
-                    <p className="text-gray-700 text-sm italic">"{person.advice}"</p>
+                    <p className="text-gray-700 text-sm italic text-center sm:text-left">"{person.advice}"</p>
                   </div>
-
                   {/* Contact */}
-                  <div className="flex space-x-2 pt-4">
+                  <div className="flex flex-col sm:flex-row gap-2 pt-4">
                     <Button 
                       size="sm" 
                       variant="outline" 
-                      className="flex-1"
+                      className="w-full sm:flex-1"
                       onClick={() => window.open(person.linkedin, '_blank')}
                     >
                       <Linkedin className="h-4 w-4 mr-2" />
@@ -211,6 +208,7 @@ const Alumni = () => {
                     <Button 
                       size="sm" 
                       variant="outline"
+                      className="w-full sm:w-auto"
                       onClick={() => window.open(`mailto:${person.email}`, '_blank')}
                     >
                       <Mail className="h-4 w-4" />
