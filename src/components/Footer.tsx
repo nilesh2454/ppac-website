@@ -1,4 +1,4 @@
-import { MapPin, Mail, Link as LinkIcon } from 'lucide-react';
+import { MapPin, Mail, Link as LinkIcon, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -22,6 +22,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-blue-400 flex-shrink-0" />
                 <p className="text-gray-300 text-sm sm:text-base break-all">ppac@kbcnmu.ac.in</p>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone className="h-5 w-5 text-blue-400 flex-shrink-0" />
+                <p className="text-gray-300 text-sm sm:text-base break-all">+918010532454</p>
               </div>
             </div>
           </div>
