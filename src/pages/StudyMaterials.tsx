@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -179,13 +178,27 @@ const StudyMaterials = () => {
           </Card>
         </div>
 
-        {/* Materials Tabs */}
+        {/* Category Dropdown for Mobile */}
+        <div className="block sm:hidden mb-4">
+          <select
+            value={activeCategory}
+            onChange={e => setActiveCategory(e.target.value)}
+            className="w-full p-2 border rounded-md text-base"
+          >
+            {categories.map(category => (
+              <option key={category.id} value={category.id}>
+                {category.label} ({category.count})
+              </option>
+            ))}
+          </select>
+        </div>
         <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+          {/* Category Tabs for Desktop */}
+          <TabsList className="hidden sm:grid w-full grid-cols-3 mb-8 gap-4">
             {categories.map((category) => {
               const IconComponent = category.icon;
               return (
-                <TabsTrigger key={category.id} value={category.id} className="flex items-center space-x-2">
+                <TabsTrigger key={category.id} value={category.id} className="flex items-center space-x-2 justify-center">
                   <IconComponent className="h-4 w-4" />
                   <span>{category.label}</span>
                   <Badge variant="secondary" className="ml-2">{category.count}</Badge>
@@ -196,32 +209,32 @@ const StudyMaterials = () => {
 
           {Object.entries(materials).map(([category, items]) => (
             <TabsContent key={category} value={category}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {items.map((material, index) => {
                   const IconComponent = material.icon;
                   return (
-                    <Card key={index} className="card-hover">
+                    <Card key={index} className="card-hover h-full flex flex-col justify-between">
                       <CardHeader>
-                        <div className="flex items-start space-x-3">
-                          <div className="bg-blue-100 p-2 rounded-lg">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                          <div className="bg-blue-100 p-2 rounded-lg flex-shrink-0 self-center sm:self-auto">
                             <IconComponent className="h-6 w-6 text-blue-600" />
                           </div>
-                          <div className="flex-1">
-                            <CardTitle className="text-lg leading-tight">{material.title}</CardTitle>
-                            <div className="flex items-center space-x-2 mt-2">
+                          <div className="flex-1 text-center sm:text-left">
+                            <CardTitle className="text-base sm:text-lg leading-tight break-words">{material.title}</CardTitle>
+                            <div className="flex flex-wrap justify-center sm:justify-start items-center gap-2 mt-2">
                               <Badge variant="outline">{material.type}</Badge>
-                              <span className="text-sm text-gray-500">{material.size}</span>
+                              <span className="text-xs sm:text-sm text-gray-500">{material.size}</span>
                             </div>
                           </div>
                         </div>
                       </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 mb-4">{material.description}</p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-500">
+                      <CardContent className="flex-1 flex flex-col justify-between">
+                        <p className="text-gray-600 mb-4 text-sm sm:text-base break-words">{material.description}</p>
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+                          <span className="text-xs sm:text-sm text-gray-500">
                             {material.downloadCount.toLocaleString()} downloads
                           </span>
-                          <Button size="sm">
+                          <Button size="sm" className="w-full sm:w-auto">
                             <Download className="h-4 w-4 mr-2" />
                             {material.type.includes('Link') ? 'Visit' : 'Download'}
                           </Button>
@@ -259,10 +272,10 @@ const StudyMaterials = () => {
             <CardTitle className="text-xl gradient-text">Study Tips for Placement Success</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
               <div>
                 <h4 className="font-semibold mb-3">📚 Preparation Strategy</h4>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-gray-700 text-sm sm:text-base">
                   <li>• Start preparation at least 6 months before placements</li>
                   <li>• Focus on fundamentals before moving to advanced topics</li>
                   <li>• Practice coding problems daily</li>
@@ -271,7 +284,7 @@ const StudyMaterials = () => {
               </div>
               <div>
                 <h4 className="font-semibold mb-3">⏰ Time Management</h4>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-gray-700 text-sm sm:text-base">
                   <li>• Allocate specific time slots for each subject</li>
                   <li>• Balance between theory and practical</li>
                   <li>• Take regular breaks to avoid burnout</li>
