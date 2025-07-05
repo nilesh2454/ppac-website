@@ -5,6 +5,9 @@ export interface User {
   fullName: string;
   email: string;
   mobileNumber: string;
+  class: string;
+  prnNumber: string;
+  resume: File | null;
   activities: string[];
   registrationDate: string;
 }
@@ -22,6 +25,9 @@ export interface RegisterData {
   fullName: string;
   email: string;
   mobileNumber: string;
+  class: string;
+  prnNumber: string;
+  resume: File | null;
   password: string;
   confirmPassword: string;
   activities: string[];
@@ -61,6 +67,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         fullName: userData.fullName,
         email: userData.email,
         mobileNumber: userData.mobileNumber,
+        class: userData.class,
+        prnNumber: userData.prnNumber,
+        resume: userData.resume,
         activities: userData.activities,
         registrationDate: new Date().toISOString()
       };

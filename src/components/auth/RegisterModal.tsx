@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useAuth, RegisterData } from '@/context/AuthContext';
-import { Eye, EyeOff, User, Mail, Phone, Lock, CheckCircle } from 'lucide-react';
+import { Eye, EyeOff, User, Mail, Phone, Lock, CheckCircle, GraduationCap, Hash, Upload, FileText, X } from 'lucide-react';
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -20,6 +21,9 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps)
     fullName: '',
     email: '',
     mobileNumber: '',
+    class: '',
+    prnNumber: '',
+    resume: null,
     password: '',
     confirmPassword: '',
     activities: []
@@ -37,6 +41,15 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps)
     'Presentation Round',
     'Mock Interview Round',
     'Resume Building Workshop'
+  ];
+
+  const classOptions = [
+    'MCA I Year',
+    'MCA II Year',
+    'MSc CS I Year',
+    'MSc CS II Year',
+    'MSc IT I Year',
+    'MSc IT II Year'
   ];
 
   const validateForm = (): boolean => {
@@ -61,6 +74,25 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps)
       newErrors.mobileNumber = 'Mobile number is required';
     } else if (!/^\d{10}$/.test(formData.mobileNumber)) {
       newErrors.mobileNumber = 'Mobile number must be exactly 10 digits';
+    }
+
+    // Class validation
+    if (!formData.class.trim()) {
+      newErrors.class = 'Class selection is required';
+    }
+
+    // PRN number validation
+    if (!formData.prnNumber.trim()) {
+      newErrors.prnNumber = 'PRN number is required';
+    } else if (!/^\d{10}$/.test(formData.prnNumber)) {
+      newErrors.prnNumber = 'PRN number must be exactly 10 digits';
+    }
+
+    // Resume validation
+    if (!formData.resume) {
+      newErrors.resume = 'Resume upload is required';
+    } else if (formData.resume.type !== 'application/pdf') {
+      newErrors.resume = 'Only PDF files are allowed';
     }
 
     // Password validation
@@ -109,6 +141,9 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps)
             fullName: '',
             email: '',
             mobileNumber: '',
+            class: '',
+            prnNumber: '',
+            resume: null,
             password: '',
             confirmPassword: '',
             activities: []
@@ -140,6 +175,27 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps)
     }));
     if (errors.activities) {
       setErrors(prev => ({ ...prev, activities: '' }));
+    }
+  };
+
+  const handleResumeUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      if (file.type === 'application/pdf') {
+        setFormData(prev => ({ ...prev, resume: file }));
+        if (errors.resume) {
+          setErrors(prev => ({ ...prev, resume: '' }));
+        }
+      } else {
+        setErrors(prev => ({ ...prev, resume: 'Only PDF files are allowed' }));
+      }
+    }
+  };
+
+  const removeResume = () => {
+    setFormData(prev => ({ ...prev, resume: null }));
+    if (errors.resume) {
+      setErrors(prev => ({ ...prev, resume: '' }));
     }
   };
 
@@ -221,6 +277,85 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }: RegisterModalProps)
               />
             </div>
             {errors.mobileNumber && <p className="text-red-500 text-sm">{errors.mobileNumber}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="class">Class *</Label>
+            <div className="relative">
+              <GraduationCap className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Select
+                value={formData.class}
+                onValueChange={(value) => handleInputChange('class', value)}
+                required
+              >
+                <SelectTrigger className="pl-10">
+                  <SelectValue placeholder="Select your class" />
+                </SelectTrigger>
+                <SelectContent>
+                  {classOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            {errors.class && <p className="text-red-500 text-sm">{errors.class}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="prnNumber">PRN Number *</Label>
+            <div className="relative">
+              <Hash className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Input
+                id="prnNumber"
+                type="text"
+                placeholder="Enter 10-digit PRN number"
+                value={formData.prnNumber}
+                onChange={(e) => handleInputChange('prnNumber', e.target.value)}
+                className="pl-10"
+                maxLength={10}
+                required
+              />
+            </div>
+            {errors.prnNumber && <p className="text-red-500 text-sm">{errors.prnNumber}</p>}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="resume">Resume Upload * (PDF only)</Label>
+            {!formData.resume ? (
+              <div className="relative">
+                <Upload className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Input
+                  id="resume"
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleResumeUpload}
+                  className="pl-10 cursor-pointer"
+                  required
+                />
+              </div>
+            ) : (
+              <div className="border-2 border-dashed border-green-300 bg-green-50 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <FileText className="h-5 w-5 text-green-600" />
+                    <div>
+                      <p className="text-sm font-medium text-green-800">{formData.resume.name}</p>
+                      <p className="text-xs text-green-600">{(formData.resume.size / 1024 / 1024).toFixed(2)} MB</p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={removeResume}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+            {errors.resume && <p className="text-red-500 text-sm">{errors.resume}</p>}
           </div>
 
           <div className="space-y-2">
