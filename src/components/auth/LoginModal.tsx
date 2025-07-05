@@ -50,12 +50,12 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }: LoginModalProps) =>
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md rounded-2xl shadow-lg">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center gradient-text">Login</DialogTitle>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 p-2 sm:p-0">
           {error && (
             <Alert variant="destructive">
               <AlertDescription>{error}</AlertDescription>
