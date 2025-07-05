@@ -10,6 +10,7 @@ import Activities from "./pages/Activities";
 import PlacementInfo from "./pages/PlacementInfo";
 import Companies from "./pages/Companies";
 import StudyMaterials from "./pages/StudyMaterials";
+import Leaderboard from "./pages/Leaderboard";
 import Gallery from "./pages/Gallery";
 import Alumni from "./pages/Alumni";
 import Notifications from "./pages/Notifications";
@@ -33,6 +34,7 @@ const App = () => (
               <Route path="/placement-info" element={<PlacementInfo />} />
               <Route path="/companies" element={<Companies />} />
               <Route path="/study-materials" element={<StudyMaterials />} />
+              <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/alumni" element={<Alumni />} />
               <Route path="/register-alumni" element={<RegisterAlumni />} />
