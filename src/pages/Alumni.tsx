@@ -99,8 +99,12 @@ const Alumni = () => {
     { label: "Success Rate", value: "95%", color: "text-orange-600" }
   ];
 
-  const topCompanies = [
-    "Google", "Microsoft", "Amazon", "Flipkart", "Infosys", "TCS", 
+  // Split companies into two rows for animation
+  const topRowCompanies = [
+    "Google", "Microsoft", "Amazon", "Flipkart", "Infosys", "TCS"
+  ];
+  
+  const bottomRowCompanies = [
     "Wipro", "Cognizant", "Accenture", "Capgemini", "Tech Mahindra", "HCL"
   ];
 
@@ -129,18 +133,44 @@ const Alumni = () => {
           ))}
         </div>
 
-        {/* Top Companies */}
-        <Card className="mb-16">
+        {/* Top Companies with Animation */}
+        <Card className="mb-16 overflow-hidden">
           <CardHeader>
             <CardTitle className="text-2xl text-center gradient-text">Where Our Alumni Work</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap justify-center gap-3">
-              {topCompanies.map((company, index) => (
-                <Badge key={index} variant="secondary" className="text-sm py-2 px-4">
-                  {company}
-                </Badge>
-              ))}
+          <CardContent className="py-6 sm:py-8">
+            <div className="space-y-4 sm:space-y-6">
+              {/* Top Row - Moving Left to Right */}
+              <div className="relative overflow-hidden">
+                <div className="flex animate-marquee whitespace-nowrap">
+                  {/* Duplicate companies for seamless loop */}
+                  {topRowCompanies.concat(topRowCompanies).map((company, index) => (
+                    <Badge 
+                      key={`top-${index}`} 
+                      variant="secondary" 
+                      className="text-xs sm:text-sm md:text-base py-1.5 sm:py-2 px-3 sm:px-4 md:px-6 mx-2 sm:mx-3 md:mx-4 bg-blue-50 text-blue-700 border border-blue-200 flex-shrink-0 whitespace-nowrap"
+                    >
+                      {company}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Row - Moving Right to Left */}
+              <div className="relative overflow-hidden">
+                <div className="flex animate-marquee-reverse whitespace-nowrap">
+                  {/* Duplicate companies for seamless loop */}
+                  {bottomRowCompanies.concat(bottomRowCompanies).map((company, index) => (
+                    <Badge 
+                      key={`bottom-${index}`} 
+                      variant="secondary" 
+                      className="text-xs sm:text-sm md:text-base py-1.5 sm:py-2 px-3 sm:px-4 md:px-6 mx-2 sm:mx-3 md:mx-4 bg-green-50 text-green-700 border border-green-200 flex-shrink-0 whitespace-nowrap"
+                    >
+                      {company}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
