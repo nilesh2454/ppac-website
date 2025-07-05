@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, ChevronDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/context/AuthContext';
 import LoginModal from './auth/LoginModal';
 import RegisterModal from './auth/RegisterModal';
@@ -14,17 +15,22 @@ const Navigation = () => {
   const location = useLocation();
   const { isAuthenticated, user } = useAuth();
 
-  const navItems = [
+  const mainNavItems = [
     { href: '/', label: 'Home' },
     { href: '/activities', label: 'Activities' },
     { href: '/placement-info', label: 'Placement Info' },
     { href: '/companies', label: 'Companies' },
+  ];
+
+  const dropdownItems = [
     { href: '/study-materials', label: 'Study Materials' },
     { href: '/leaderboard', label: 'Leaderboard' },
     { href: '/gallery', label: 'Gallery' },
     { href: '/alumni', label: 'Alumni' },
     { href: '/notifications', label: 'Notifications' },
   ];
+
+  const allNavItems = [...mainNavItems, ...dropdownItems];
 
   const handleSwitchToRegister = () => {
     setIsLoginOpen(false);
@@ -53,7 +59,7 @@ const Navigation = () => {
             {/* Desktop Navigation */}
             <div className="hidden lg:block">
               <div className="ml-10 flex items-baseline space-x-2 xl:space-x-4">
-                {navItems.map((item) => (
+                {mainNavItems.map((item) => (
                   <Link
                     key={item.href}
                     to={item.href}
@@ -66,6 +72,35 @@ const Navigation = () => {
                     {item.label}
                   </Link>
                 ))}
+                
+                {/* More Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="px-2 xl:px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-blue-600 transition-colors duration-200"
+                    >
+                      More
+                      <ChevronDown className="ml-1 h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    {dropdownItems.map((item) => (
+                      <DropdownMenuItem key={item.href} asChild>
+                        <Link
+                          to={item.href}
+                          className={`w-full ${
+                            location.pathname === item.href
+                              ? 'bg-blue-50 text-blue-700'
+                              : ''
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
 
@@ -111,11 +146,33 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="lg:hidden border-t bg-white">
             <div className="px-2 pt-2 pb-3 space-y-1 max-h-screen overflow-y-auto">
-              {navItems.map((item) => (
+              {/* Main Navigation Items */}
+              {mainNavItems.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
                   className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                    location.pathname === item.href
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              
+              {/* More Section Header */}
+              <div className="px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                More
+              </div>
+              
+              {/* Dropdown Items */}
+              {dropdownItems.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className={`block px-6 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
                     location.pathname === item.href
                       ? 'bg-blue-100 text-blue-700'
                       : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600'

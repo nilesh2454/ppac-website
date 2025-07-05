@@ -60,7 +60,7 @@ const Home = () => {
             <div className="animate-fade-in">
               <p className="text-lg sm:text-xl md:text-2xl text-white font-semibold mb-2">Welcome To</p>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
-                Pre-Placement Activity Club
+                Pre-Placement Activity Platform
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-blue-200 mb-6 sm:mb-8">
                 School of Computer Sciences
