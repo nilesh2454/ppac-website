@@ -139,26 +139,16 @@ const Alumni = () => {
             <CardTitle className="text-2xl text-center gradient-text">Where Our Alumni Work</CardTitle>
           </CardHeader>
           <CardContent className="py-8">
-            <div className="space-y-6">
+            <div className="space-y-8">
               {/* Top Row - Moving Left to Right */}
               <div className="relative overflow-hidden">
                 <div className="flex animate-marquee whitespace-nowrap">
                   {/* First set of companies */}
-                  {topRowCompanies.map((company, index) => (
+                  {topRowCompanies.concat(topRowCompanies).map((company, index) => (
                     <Badge 
-                      key={`top-1-${index}`} 
+                      key={`top-${index}`} 
                       variant="secondary" 
-                      className="text-lg py-3 px-6 mx-3 bg-blue-50 text-blue-700 border border-blue-200 flex-shrink-0"
-                    >
-                      {company}
-                    </Badge>
-                  ))}
-                  {/* Duplicate set for seamless loop */}
-                  {topRowCompanies.map((company, index) => (
-                    <Badge 
-                      key={`top-2-${index}`} 
-                      variant="secondary" 
-                      className="text-lg py-3 px-6 mx-3 bg-blue-50 text-blue-700 border border-blue-200 flex-shrink-0"
+                      className="text-base py-2 px-6 mx-4 bg-blue-50 text-blue-700 border border-blue-200 flex-shrink-0 whitespace-nowrap"
                     >
                       {company}
                     </Badge>
@@ -170,21 +160,11 @@ const Alumni = () => {
               <div className="relative overflow-hidden">
                 <div className="flex animate-marquee-reverse whitespace-nowrap">
                   {/* First set of companies */}
-                  {bottomRowCompanies.map((company, index) => (
+                  {bottomRowCompanies.concat(bottomRowCompanies).map((company, index) => (
                     <Badge 
-                      key={`bottom-1-${index}`} 
+                      key={`bottom-${index}`} 
                       variant="secondary" 
-                      className="text-lg py-3 px-6 mx-3 bg-green-50 text-green-700 border border-green-200 flex-shrink-0"
-                    >
-                      {company}
-                    </Badge>
-                  ))}
-                  {/* Duplicate set for seamless loop */}
-                  {bottomRowCompanies.map((company, index) => (
-                    <Badge 
-                      key={`bottom-2-${index}`} 
-                      variant="secondary" 
-                      className="text-lg py-3 px-6 mx-3 bg-green-50 text-green-700 border border-green-200 flex-shrink-0"
+                      className="text-base py-2 px-6 mx-4 bg-green-50 text-green-700 border border-green-200 flex-shrink-0 whitespace-nowrap"
                     >
                       {company}
                     </Badge>
