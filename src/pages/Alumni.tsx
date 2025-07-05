@@ -99,8 +99,12 @@ const Alumni = () => {
     { label: "Success Rate", value: "95%", color: "text-orange-600" }
   ];
 
-  const topCompanies = [
-    "Google", "Microsoft", "Amazon", "Flipkart", "Infosys", "TCS", 
+  // Split companies into two rows for animation
+  const topRowCompanies = [
+    "Google", "Microsoft", "Amazon", "Flipkart", "Infosys", "TCS"
+  ];
+  
+  const bottomRowCompanies = [
     "Wipro", "Cognizant", "Accenture", "Capgemini", "Tech Mahindra", "HCL"
   ];
 
@@ -129,18 +133,64 @@ const Alumni = () => {
           ))}
         </div>
 
-        {/* Top Companies */}
-        <Card className="mb-16">
+        {/* Top Companies with Animation */}
+        <Card className="mb-16 overflow-hidden">
           <CardHeader>
             <CardTitle className="text-2xl text-center gradient-text">Where Our Alumni Work</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap justify-center gap-3">
-              {topCompanies.map((company, index) => (
-                <Badge key={index} variant="secondary" className="text-sm py-2 px-4">
-                  {company}
-                </Badge>
-              ))}
+          <CardContent className="py-8">
+            <div className="space-y-6">
+              {/* Top Row - Moving Left to Right */}
+              <div className="relative overflow-hidden">
+                <div className="flex animate-marquee whitespace-nowrap">
+                  {/* First set of companies */}
+                  {topRowCompanies.map((company, index) => (
+                    <Badge 
+                      key={`top-1-${index}`} 
+                      variant="secondary" 
+                      className="text-lg py-3 px-6 mx-3 bg-blue-50 text-blue-700 border border-blue-200 flex-shrink-0"
+                    >
+                      {company}
+                    </Badge>
+                  ))}
+                  {/* Duplicate set for seamless loop */}
+                  {topRowCompanies.map((company, index) => (
+                    <Badge 
+                      key={`top-2-${index}`} 
+                      variant="secondary" 
+                      className="text-lg py-3 px-6 mx-3 bg-blue-50 text-blue-700 border border-blue-200 flex-shrink-0"
+                    >
+                      {company}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Row - Moving Right to Left */}
+              <div className="relative overflow-hidden">
+                <div className="flex animate-marquee-reverse whitespace-nowrap">
+                  {/* First set of companies */}
+                  {bottomRowCompanies.map((company, index) => (
+                    <Badge 
+                      key={`bottom-1-${index}`} 
+                      variant="secondary" 
+                      className="text-lg py-3 px-6 mx-3 bg-green-50 text-green-700 border border-green-200 flex-shrink-0"
+                    >
+                      {company}
+                    </Badge>
+                  ))}
+                  {/* Duplicate set for seamless loop */}
+                  {bottomRowCompanies.map((company, index) => (
+                    <Badge 
+                      key={`bottom-2-${index}`} 
+                      variant="secondary" 
+                      className="text-lg py-3 px-6 mx-3 bg-green-50 text-green-700 border border-green-200 flex-shrink-0"
+                    >
+                      {company}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
